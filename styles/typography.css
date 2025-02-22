@@ -1,0 +1,64 @@
+/* Line height and spacing */
+body {
+    h1 {line-height: 1;     letter-spacing:  -0.01rem;}
+    h2 {line-height: 1.067; letter-spacing:  0.03rem;}
+    h3 {line-height: 1.083; letter-spacing:  0.02rem;}
+    h4 {line-height: 1.1;   letter-spacing:  0.01rem;}
+    h5 {line-height: 1.111; letter-spacing:  0.01rem;}
+    h6 {line-height: 1.125; letter-spacing:  0.01rem;}
+    p {line-height: 1.3;    letter-spacing:  0.01rem;}
+}
+/* Font family*/
+*, h1, h2, h3, h4, h5, h6, p, input, a, li{
+    font-family: "Poppins", sans-serif;
+}
+/* Bold text*/
+.semi-bold {
+    font-weight: 600;
+}
+
+/* MOBILE FONTS SIZE AND TYPES */
+@media (max-width: 576px) {
+    /* Root font-size*/
+    * {font-size: 14px;}
+    /* Relative font-sizes*/
+    body {
+        /* Heading font sizes*/
+        h1 {font-size: 1.5rem}
+        h2 {font-size: 1.3rem}
+        h3 {font-size: 1.25rem}
+        /* Bold text*/
+        h1, h2, h3 {font-weight: bold}
+    }
+}
+
+/* TABLET FONTS FONTS SIZE AND TYPES **/
+@media (min-width: 576px) {
+    /* Root font-size*/
+    * {font-size: 16px;}
+    /* Relative font-sizes */
+    body {
+        /* Heading font sizes*/
+        h1 {font-size: 2.125rem}
+        h2 {font-size: 1.35rem}
+        h3 {font-size: 1.25rem}
+        h4 {font-size: 1.125rem}
+        /* Bold text*/
+        h1, h2, h3 {font-weight: bold}
+    }
+}
+/* DESKTOP FONTS FONTS SIZE AND TYPES **/
+@media (min-width: 992px) {
+    /* Root font-size*/
+    * {font-size: 18px;}
+    /* Heading font sizes*/
+    body {
+        h1 {font-size: 1.6rem}
+        h2 {font-size: 1.3rem}
+        h3 {font-size: 1.2rem}
+        h4 {font-size: 1.1rem}
+        h5 {font-size: 1.1rem}
+        /* Bold text */
+        h1, h2, h3, h4, h5 {font-weight: 600}
+    }
+}

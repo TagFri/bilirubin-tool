@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="nb">
+<head>
+    <meta charset="UTF-8">
+    <!-- max-scale=1 : avoid zooming in on input on mobile devices -->
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta
+            name="description"
+            content="Gultbarn er et klinisk verktøy for presis oppfølging av nyfødte med gulsott. Den bakenforliggende algoritmen gir anbefalinger og råd som speiler pediatriveilederen basert på barnets fødselsvekt, gestasjonsalder og bilirubinverdier.">
+    <meta name="googlebot" content="notranslate">
+    <meta name="google-site-verification" content="...">
+
+    <title>Gult barn - Nøyaktig gulsott oppfølgning</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="icon" type="image/x-icon" href="./assets/icons/logo.svg">
+    <!-- GOOGLE FONTS -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+    </style>
+    <!-- STYLESHEETS -->
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/colors.css">
+    <link rel="stylesheet" href="./styles/typography.css">
+    <link rel="stylesheet" href="./styles/responsive.css">
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+<!-- JS SCRIPTS -->
+<!-- Math -->
+<script defer src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js></script>
+<!-- INPUT MASKING -->
+<script defer src="./scripts/input-masking/inputmask.js"></script>
+<script defer src="./scripts/input-masking/bindings/inputmask.binding.js"></script>
+<!-- OWN JS -->
+<script defer type="module" src="./scripts/index.js"></script>
+<!-- HTML -->
+<header>
+    <div id="logo">
+        <img src="./assets/icons/logo.svg" alt="Gult barn logo">
+        <h1>gultbarn</h1>
+    </div>
+    <div id="about">
+        <h3 id="about-us-title">hilsen sommervikarene</h3>
+    </div>
+</header>
+<main id="main">
+    <!-- INFO ABOUT CHILD -->
+    <div id="child-container" class="container round-container">
+        <img id="complete-icon" class="hidden" src="assets/icons/checkmark.svg" alt="complete-icon">
+        <h2>Om barnet</h2>
+        <!-- BIRTH WEIGHT INPUT-->
+        <label for="birth-weight">Fødselsvekt</label>
+        <input id="birth-weight" name="birth-weight" class="birthWeight full-input child-input" type="text" inputmode="numeric" placeholder="3500g">
+        <p id="birth-weight-error" class="no-error-message">Må være mellom 500 - 7500g</p>
+        <!-- BIRTH TIME INPUT-->
+        <label for="birth-date">Fødselstidpunkt</label>
+        <div class="double-input">
+            <input id="birth-date" name="birt-date" class="birthTimeDate half-input child-input" type="text" inputmode="numeric" placeholder="dd/mm">
+            <input id="birth-time" name="birt-time" class="birthTimeDate half-input child-input" type="text" inputmode="numeric" placeholder="hh:mm">
+        </div>
+        <p id="birth-date-error" class="no-error-message">Dato må være mellom 01/01 og 31/12</p>
+        <p id="birth-time-error" class="no-error-message">Tid må være mellom 00:00 og 23:59</p>
+        <!-- GASTATION AT BIRTH-->
+        <label for="gestation-week">Gestasjonsalder</label>
+        <div class="double-input">
+            <input id="gestation-week" name="gestation-week" class="gestation half-input child-input" type="text" inputmode="numeric" placeholder="39u">
+            <button id="add-child" class="half-input btn" tabindex="0">Legg til</button>
+        </div>
+        <p id="gestation-week-error" class="no-error-message">GA må være mellom 22 og 45</p>
+    </div>
+    <!-- LAB CONTAINER-->
+    <div id="lab-container" class="container round-container opacity-container">
+        <!-- ADD NEW LAB VALUE-->
+        <h2>Legg til målinger</h2>
+        <label for="lab-date">Tidspunkt for prøve</label>
+        <div class="double-input">
+            <input class="half-input lab-input" id="lab-date" type="text" inputmode="numeric" placeholder="dd/mm" disabled>
+            <input class="half-input lab-input" id="lab-time" type="text" inputmode="numeric" placeholder="hh:mm" disabled>
+        </div>
+        <p id="lab-date-error" class="no-error-message">Dato må være mellom 01/01 og 31/12</p>
+        <p id="lab-time-error" class="no-error-message">Tid må være mellom 00:00 og 23:59</p>
+        <p id="early-lab-error" class="no-error-message">Før fødseltidspunkt eller frem i tid</p>
+        <label for="bilirubin-value">Bilirubinverdi</label>
+        <div class="double-input">
+            <input id="bilirubin-value" class="half-input lab-input"  type="text" inputmode="numeric" placeholder="120 µmol/L" disabled>
+            <button id="add-lab" class="half-input btn" disabled tabindex="0">Legg til</button>
+        </div>
+        <p id="bilirubin-value-error" class="no-error-message">Bilirubin må være mellom 0 og 1000</p>
+        <!-- LAB VALUES LIST-->
+        <hr>
+        <ul id="lab-icons">
+            <li class="lab-icons-list">
+                <p></p>
+                <img src="./assets/icons/blood-sample-opace.svg" alt="blodprove-icon">
+                <img src="./assets/icons/calender-opace.svg" alt="calendar-icon">
+                <img src="./assets/icons/time-opace.svg" alt="time-icon">
+            </li>
+        </ul>
+        <ul id="lab-list">
+            <li class="individual-lab">
+            </li>
+        </ul>
+    </div>
+    <!-- GRAPH -->
+    <div id="graph-container" class="container opacity-container">
+        <h4 id="graph-label"></h4>
+        <canvas id="graph"></canvas>
+    </div>
+    <!-- EXTRA QUESTIONS ACORDING TO GUIDELINES -->
+    <!-- TODO: Legg til nøkkelspørsmål ift bilirubinverdier -->
+    <!-- CLINICAL GUIDANCE / ADVICE -->
+    <div id="advice-container" class="flex-container flex-column container round-container opacity-container">
+        <div>
+            <h2 id="advice-title">Fagelig råd</h2>
+            <p id="advice-paragraph"><br><br><br></p>
+        </div>
+        <h4 id="feedback-button" class="hidden"><span><img id="feedback-image" src="./assets/icons/flag.svg" alt="flag-icon"></span><a class="">Gi tilbakemelding</a></h4>
+    </div>
+    <!-- PREFORMATTED AND FINISHED JOURNAL NOTE -->
+    <div id="journal-container" class="container round-container opacity-container">
+        <div>
+            <h2 id="journal-title">Journalføre?</h2>
+            <p id="journal-paragraph">Kopier opplysninger som journalnotat</p>
+        </div>
+        <h4 id="journal-copy" class="tooltip"><span class="tooltiptext" id="myTooltip">Kopiert</span><span><img id="journal-copy-img" src="./assets/icons/copy.svg" alt="flag-icon"></span> kopier</h4>
+    </div>
+</main>
+<footer>
+    <div id= "footer-container" class="flex-container main-container">
+        <div class="flex-container flex-column left-column">
+            <p id="clinical-version" class="small-text">Sist faglig oppdatert 09.02.2025.</p>
+            <p id="tech-version" class="small-text">Sist teknisk oppdatert 13.02.2025 kl. 15:07</p>
+            <h2>Laget med kjærlighet for barneavdelingen ved Sørlandet Sykehus</h2>
+            <p>Gultbarn er et klinisk verktøy for presis oppfølging av nyfødte med gulsott. Den bakenforliggende algoritmen gir anbefalinger og råd som speiler pediatriveilederen basert på barnets fødselsvekt, gestasjonsalder og bilirubinverdier.<br><br>Vi bruker en metode der det estimerte tidspunktet for blodprøvekontroll beregnes ved å finne skjæringspunktet mellom en ekstrapolert kurve, utledet fra de to siste bilirubinmålingene, og lysgrensen tilpasset det aktuelle barnet. Selv om denne metoden ikke er beskrevet i de norske retningslinjene, gir den et nyttig grunnlag for tolkning av laboratorieverdiers utvikling.</p>
+            <h2>Algoritmen som driver nettsiden</h2>
+            <p>Rådene i denne algoritmen er basert på Pediatriveilederen, og lysgrensene bygger på konsensus fra Interessegruppen i nyfødtmedisin, Norsk Barnelegeforening (2006, revidert 2016). All data behandles lokalt på din enhet og sendes aldri til eksterne servere. Algoritmen er utviklet med mål om å støtte kliniske vurderinger, men vi tar forbehold om feil eller mangler. Behandlende kliniker oppfordres alltid til å gjøre en selvstendig vurdering basert på barnets helhetlige situasjon.</p>
+        </div>
+        <div class="flex-container flex-column right-column right-text">
+            <img class="logo" src="./assets/icons/logo_black.svg" alt="Gult barn logo">
+            <div class="flex-container flex-column feedback">
+                <a href="mailto:hei@sablateknisk.no?subject=Gult barn tilbakemelding" class="link"> Gi tilbakemelding</a>
+                <p class="mail">hei@sablateknisk.no</p>
+            </div>
+            <p>Algoritmen og nettsiden er utviklet<br>av Åge Frivoll og Vetle Mørland</p>
+        </div>
+    </div>
+    <img loading="lazy" id="algorithm-flowchart" src="./assets/icons/algorithm.svg" alt="Algorithm">
+    <div id="disclaimer" class="flex-container">
+        <div class="disclaimer half-column">
+            <p class="small-text">1 Lysgrensene bygger på konsensus fra Interessegruppen i nyfødtmedisin, Norsk Barnelegeforening (2006, revidert 2016). Grafene for lysgrensene i gultbarn er laget ved lineær regresjon med følgende punkter:
+                <br><br>
+                2 Transfusjonsgrensene er hentet fra Pediatriveilederens kapittel 8.3 om uskiftningsreaksjon. Grafene for transfusjonsgrensene er alget ved lineær regresjon med følgende punkter:
+                Prematur < 1000 g : 1. døgn: >175 μmol/l, 2. døgn: >200 μmol/l, 3. døgn: >250 μmol/l.
+                Prematur 1000-1500 g: 1. døgn: >200 μmol/l, 2. døgn: >225 μmol/l, 3. døgn: >250μmol/l.
+                Prematur 1500-2500 g: 1. døgn: >250 μmol/l, 2. døgn: >300 μmol/l, 3. døgn: >350 μmol/l.
+                <br>
+                Ettersom det ikke er angitt spesifikke verdier etter det tredje levedøgnet for premature, har vi antatt at grensene for transfusjon flater ut på samme verdi etter dette tidspunktet.
+            </p>
+        </div>
+        <div class="disclaimer half-column">
+            <p class="small-text">
+                3 Pediatrivilederende anbefaller at det skal tas total serum bilirubin ved  ”grenseverdier” (ca. 30–50 µM) under lysgrensen. Vi har valgt det konservative ytterpunktet 50 µM.
+                <br><br>
+                4 Når krysningspunktet mellom ekstrapolert graf og lysgrensen ligger mer enn 14 dager frem i tid, anses denne som avflatet og vil resultere i råd om ingen oppfølging. Dette er en egendefinert definisjon i mangel på tydeligere retningslinjer.
+            </p>
+        </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,19 @@
+:root {
+    /* COLORS */
+    --color-yellow-strong: #F5A201;
+    --color-yellow-solid: #FFB72E;
+    --color-yellow-medium: #FBC169;
+    --color-yellow-light: #FFE2B1;
+    --color-yellow-lighter: #FFFAF2;
+    --color-black: #0B1E33;
+    --color-black-light: #1F365D;
+    --color-grey: #DBDDE2;
+    --color-grey-light: #F5F9FA;
+    --color-red: #FB4141;
+    --color-light-red: #FFE8E9;
+    --color-green: #C4E047
+}
+body {
+    /* STANDARD FONT COLOR */
+    color: var(--color-black);
+}

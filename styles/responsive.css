@@ -1,0 +1,56 @@
+/* -- RESPONSIVE DESIGN BREAKPOINT AND LAYOUT --*/
+/* MOBILE -> SINGLE COLUMN VIEW */
+@media (max-width: 600px) {
+    main {
+        display: flex;
+        flex-direction: column;
+    }
+    #crossing-info {
+        display: inline-block
+    }
+    #about-us-title, #algorithm-flowchart, #disclaimer {
+        display: none !important;
+
+    }
+}
+/* TABLET -> SPECILIZED GRID VIEW */
+@media (min-width: 600px) {
+    #crossing-info {
+        display: none;
+    }
+    main {
+        padding: 0 0.75rem;
+        @media (min-width: 700px) {padding: 0 1rem;}
+        @media (min-width: 750px) {padding: 0 2rem;}
+        display: grid;
+        grid-template-columns: 25% 25% 25% 25%;
+
+        #child-container {
+            grid-column: 1 / span 2;
+        }
+        #lab-container {
+            grid-column: 3 / span 2;
+        }
+        #journal-container {}
+
+        #graph-container {
+            grid-column: 1 / span 4;
+        }
+        #advice-container {
+            grid-column: 1 / span 3;
+        }
+    }
+}
+/* DESKTOP -> SPECILIZED DESKTOP VIEW */
+@media (min-width: 992px) {
+    main {
+        grid-template-columns:  330px 1.9fr 0.85fr;
+        grid-template-rows:     1fr auto;
+                                /* row-s, col-s, row-e, col-s*/
+        #child-container    {grid-area: 1 / 1 / 2 / 2;}
+        #lab-container      {grid-area: 2 / 1 / 3 / 2;}
+        #graph-container    {grid-area: 1 / 2 / 2 / 4;}
+        #advice-container   {grid-area: 2 / 2 / 3 / 3;}
+        #journal-container  {grid-area: 2 / 3 / 3 / 4;}
+    }
+}
