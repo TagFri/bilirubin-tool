@@ -11,6 +11,9 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
+      - name: Create CNAME for Demo
+        run: echo "demo.gultbarn.no" > ./CNAME
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
