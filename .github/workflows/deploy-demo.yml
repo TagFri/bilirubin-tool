@@ -11,6 +11,9 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
+      - name: Debug - List Directory Contents
+        run: ls -al
+
       - name: Create CNAME for Demo
         run: echo "demo.gultbarn.no" > ./CNAME
 
