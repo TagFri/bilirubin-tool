@@ -299,5 +299,4 @@ function updateAdvice() {
     document.getElementById("advice-container").style.backgroundColor = `${adviceElement.color}`;
     //Show feedback button
     document.getElementById("feedback-button").classList.remove("hidden")
-
 }
