@@ -1,4 +1,3 @@
-name: Deploy Production Site
 on:
   push:
     branches:
@@ -17,13 +16,11 @@ jobs:
       - name: Create CNAME for Demo
         run: echo "demo.gultbarn.no" > ./CNAME
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages (Demo)
         uses: peaceiris/actions-gh-pages@v3
         with:
-          personal_token: ${{ secrets.DEMO_DEPLOY_TOKEN}}
-          # Publish everything in the root directory (.)
+          personal_token: ${{ secrets.DEMO_DEPLOY_TOKEN }}
+          external_repository: TagFri/gultbarn-demo  # Ensure this is the correct repo identifier
           publish_dir: .
-          # If you’re deploying to a different repository, specify it here:
-          external_repository: TagFri/gultbarn-demo
           branch: gh-pages
           force_orphan: true
