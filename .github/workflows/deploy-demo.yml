@@ -22,3 +22,4 @@ jobs:
           publish_dir: .
           # If you’re deploying to a different repository, specify it here:
           external_repository: TagFri/gultbarn-demo
+          branch: gh-pages
