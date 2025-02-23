@@ -23,5 +23,5 @@ jobs:
           personal_token: ${{ secrets.DEMO_DEPLOY_TOKEN }}
           external_repository: TagFri/gultbarn-demo  # Replace with your actual demo repo "owner/repo"
           publish_dir: .
-          branch: gh-pages  # This must match the branch set for Pages in the demo repo
+          publish_branch: gh-pages
           force_orphan: true
